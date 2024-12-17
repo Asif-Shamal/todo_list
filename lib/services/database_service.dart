@@ -50,4 +50,19 @@ class DatabaseService {
       },
     );
   }
+
+  Future<List<Task>> getTasks() async {
+    final db = await database;
+    final data = await db.query(_tasksTableName);
+    List<Task> tasks = data
+        .map(
+          (e) => Task(
+            id: e["id"] as int,
+            status: e["status"] as int,
+            content: e["content"] as String,
+          ),
+        )
+        .toList();
+    return tasks;
+  }
 }
