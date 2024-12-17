@@ -38,9 +38,7 @@ class DatabaseService {
     return database;
   }
 
-  void addTask(
-    String content,
-  ) async {
+  void addTask(String content) async {
     final db = await database;
     await db.insert(
       _tasksTableName,
@@ -78,6 +76,7 @@ class DatabaseService {
     );
   }
 
+// Delete one task at a time
   void deleteTask(
     int id,
   ) async {
