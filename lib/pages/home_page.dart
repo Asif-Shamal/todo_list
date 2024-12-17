@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 _databaseService.deleteTask(task.id);
                 setState(() {});
-                Navigator.of(context).pop(); // Close the dialog after deletion
+                Navigator.of(context).pop(); // Close the dialog
               },
               child: const Text("Delete"),
             ),
