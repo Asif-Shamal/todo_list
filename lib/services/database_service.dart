@@ -77,4 +77,17 @@ class DatabaseService {
       whereArgs: [id],
     );
   }
+
+  void deleteTask(
+    int id,
+  ) async {
+    final db = await database;
+    await db.delete(
+      _tasksTableName,
+      where: 'id = ?',
+      whereArgs: [
+        id,
+      ],
+    );
+  }
 }
