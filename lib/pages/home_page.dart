@@ -46,6 +46,75 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _tasksList() {
+    return FutureBuilder(
+      future: _databaseService.getTasks(),
+      builder: (context, snapshot) {
+        // If the snapshot has no data or is empty, show the "no tasks" message
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+          return Center(
+            child: Text(
+              'No tasks, press the button to add task',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data?.length ?? 0,
+            itemBuilder: (context, index) {
+              Task task = snapshot.data![index];
+              return ListTile(
+                onTap: () {},
+                title: Text(
+                  task.content,
+                  style: TextStyle(
+                    fontSize: 22,
+                    decoration:
+                        task.status == 1 ? TextDecoration.lineThrough : null,
+                    decorationThickness: 2.0,
+                    decorationColor: Colors.red,
+                  ),
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: task.status == 1,
+                      onChanged: (value) {
+                        _databaseService.updateTaskStatus(
+                          task.id,
+                          value == true ? 1 : 0,
+                        );
+                        setState(() {});
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        _showConfirmationDialog(task);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+      },
+    );
+  }
+
+// add task button
   Widget _addTaskButton() {
     return FloatingActionButton(
       onPressed: () {
