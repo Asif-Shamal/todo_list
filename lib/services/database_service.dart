@@ -89,4 +89,11 @@ class DatabaseService {
       ],
     );
   }
+
+  // Delete all tasks
+
+  void deleteAllTasks() async {
+    final db = await database;
+    await db.delete(_tasksTableName);
+  }
 }
