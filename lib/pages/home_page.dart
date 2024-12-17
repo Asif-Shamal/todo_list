@@ -24,11 +24,20 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("Tasks"),
         actions: [
+          //delete task button
           IconButton(
             icon: Icon(
                 themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode),
             onPressed: () {
               themeProvider.toggleTheme();
+            },
+          ),
+
+          // delete all tasks button
+          IconButton(
+            icon: const Icon(Icons.delete_forever),
+            onPressed: () {
+              _showDeleteAllConfirmationDialog();
             },
           ),
         ],
