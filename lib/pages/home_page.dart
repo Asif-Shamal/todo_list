@@ -42,6 +42,49 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      drawer: Drawer(
+        // This is the side menu
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Home'),
+              onTap: () {
+                // Close the drawer and navigate to the Home screen
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Settings'),
+              onTap: () {
+                // Close the drawer and navigate to the Settings screen
+                Navigator.pop(context);
+                // You can navigate to another page here using Navigator.push()
+              },
+            ),
+            ListTile(
+              title: Text('Profile'),
+              onTap: () {
+                // Close the drawer and navigate to the Profile screen
+                Navigator.pop(context);
+                // You can navigate to another page here
+              },
+            ),
+          ],
+        ),
+      ),
       body: _tasksList(),
     );
   }
