@@ -18,22 +18,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-
     return Scaffold(
       floatingActionButton: _addTaskButton(),
       appBar: AppBar(
         title: const Text("Tasks"),
         actions: [
-          //delete task button
-          IconButton(
-            icon: Icon(
-                themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode),
-            onPressed: () {
-              themeProvider.toggleTheme();
-            },
-          ),
-
           // delete all tasks button
           IconButton(
             icon: const Icon(Icons.delete_forever),
@@ -118,7 +107,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-// add task button
+  // add task button
   Widget _addTaskButton() {
     return FloatingActionButton(
       onPressed: () {
@@ -194,7 +183,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-// delete one task at a time
+  // delete one task at a time
   void _showConfirmationDialog(Task task) {
     showDialog(
       context: context,
