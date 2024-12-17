@@ -47,11 +47,15 @@ class Sidebar extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Profile'),
+            title: Text('About us'),
             onTap: () {
-              // Close the drawer and navigate to the Profile screen
               Navigator.pop(context);
-              // You can navigate to another page here
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AboutUs(),
+                ),
+              );
             },
           ),
         ],
