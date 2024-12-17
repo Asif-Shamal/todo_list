@@ -162,7 +162,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   //delete all tasks
-
   void _showDeleteAllConfirmationDialog() {
     showDialog(
       context: context,
