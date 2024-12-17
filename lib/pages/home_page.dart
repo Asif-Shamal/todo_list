@@ -161,54 +161,37 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _tasksList() {
-    return FutureBuilder(
-      future: _databaseService.getTasks(),
-      builder: (context, snapshot) {
-        return ListView.builder(
-          itemCount: snapshot.data?.length ?? 0,
-          itemBuilder: (context, index) {
-            Task task = snapshot.data![index];
-            return ListTile(
-              onTap: () {},
-              title: Text(
-                task.content,
-                style: TextStyle(
-                  fontSize: 22,
-                  decoration:
-                      task.status == 1 ? TextDecoration.lineThrough : null,
-                  decorationThickness: 2.0,
-                  decorationColor: Colors.red,
-                ),
-              ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: task.status == 1,
-                    onChanged: (value) {
-                      _databaseService.updateTaskStatus(
-                        task.id,
-                        value == true ? 1 : 0,
-                      );
-                      setState(() {});
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      _showConfirmationDialog(task);
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
+  //delete all tasks
+
+  void _showDeleteAllConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Delete All Tasks"),
+          content: const Text("Are you sure you want to delete all tasks?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                _databaseService.deleteAllTasks(); // Delete all tasks
+                setState(() {}); // Update UI
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text("Delete All"),
+            ),
+          ],
         );
       },
     );
   }
 
+// delete one task at a time
   void _showConfirmationDialog(Task task) {
     showDialog(
       context: context,
